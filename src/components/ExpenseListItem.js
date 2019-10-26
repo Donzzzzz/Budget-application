@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { removeExpense } from "../actions/expenses";
 import moment from "moment";
+import numeral from "numeral";
 import { Link } from "react-router-dom";
 
 // Using destructuring
@@ -17,7 +18,8 @@ export const ExpenseListItem = ({
       <h3>{description}</h3>
     </Link>
     <p>
-      {amount} - {moment(createdAt).format("MMM Do, YYYY")}
+      {numeral(amount / 100).format("$0,0.00")} -{" "}
+      {moment(createdAt).format("MMMM Do, YYYY")}
     </p>
   </div>
 );
