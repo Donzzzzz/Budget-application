@@ -5,6 +5,7 @@ import {
   addExpense,
   editExpense,
   removeExpense,
+  startRemoveExpense,
   setExpenses,
   startSetExpenses
 } from "../../actions/expenses";
@@ -33,6 +34,25 @@ test("Remove action", () => {
   });
 });
 
+test("should remove expense from firebase", done => {
+  const store = createMockStore({});
+  const id = expenses[2].id;
+  store
+    .dispatch(startRemoveExpense({ id }))
+    .then(() => {
+      const actions = store.getActions();
+      expect(actions[0]).toEqual({
+        type: "REMOVE_EXPENSE",
+        id
+      });
+      return database.ref(`expenses/${id}`).once("value");
+    })
+    .then(snapshot => {
+      expect(snapshot.val()).toBeFalsy();
+      done();
+    });
+});
+
 test("Edit expense", () => {
   const action = editExpense("123abc", { note: "New note value" });
   expect(action).toEqual({
@@ -52,6 +72,8 @@ test("should setup add expense action object with provided values", () => {
   });
 });
 
+// Testing asynchronous need to use done() to determine all the process have been finished.
+// Otherwise it will finish the test immediately.
 test("should add expense to database and store", done => {
   const store = createMockStore({});
   const expenseData = {

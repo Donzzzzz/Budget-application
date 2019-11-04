@@ -32,6 +32,7 @@ export const addExpense = expense => ({
   expense
 });
 
+// Asynchronous
 export const startAddExpense = (expenseData = {}) => {
   return dispatch => {
     const {
@@ -62,6 +63,17 @@ export const removeExpense = ({ id } = {}) => ({
   id
 });
 
+export const startRemoveExpense = ({ id } = {}) => {
+  return dispatch => {
+    return database
+      .ref(`expenses/${id}`)
+      .remove()
+      .then(() => {
+        dispatch(removeExpense({ id }));
+      });
+  };
+};
+
 // EDIT_EXPENSE
 export const editExpense = (id, updates) => ({
   type: "EDIT_EXPENSE",
@@ -75,6 +87,8 @@ export const setExpenses = expenses => ({
   expenses
 });
 
+// Read the data from the firebase, firebase using foreach to push all the expenses object into an array.
+// Load it in app.js
 // 1. Fetch all expense data once
 // 2. Parse that data into an array
 // 3. Dispatch SET_EXPENSES
