@@ -3,7 +3,12 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import AppRouter from "./routers/AppRouter";
 import configureStore from "./store/configureStore";
-import { addExpense, removeExpense, editExpense } from "./actions/expenses";
+import {
+  addExpense,
+  removeExpense,
+  editExpense,
+  startSetExpenses
+} from "./actions/expenses";
 import {
   setTextFilter,
   sortByAmount,
@@ -41,4 +46,7 @@ const jsx = (
   </Provider>
 );
 
-ReactDOM.render(jsx, document.getElementById("app"));
+// ReactDOM.render(jsx, document.getElementById("app"));
+store.dispatch(startSetExpenses()).then(() => {
+  ReactDOM.render(jsx, document.getElementById("app"));
+});
