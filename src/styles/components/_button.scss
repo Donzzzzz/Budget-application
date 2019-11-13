@@ -1,8 +1,15 @@
-.login-button {
+.button {
   background: $blue;
-  color: white;
   border: none;
-  font-weight: 300;
+  color: white;
+  display: inline-block;
   font-size: $font-size-large;
+  font-weight: 300;
+  line-height: 1;
   padding: $s-size;
+  text-decoration: none;
+}
+
+.button--link {
+  background: none;
 }

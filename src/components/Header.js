@@ -12,9 +12,11 @@ export const Header = ({ startLogout }) => {
             <h1>Budget</h1>
           </Link>
           {/* <NavLink to="/create" activeClassName="is-active">
-        Create Expense
-      </NavLink> */}
-          <button onClick={startLogout}>Logout</button>
+               Create Expense
+           </NavLink> */}
+          <button className="button button--link" onClick={startLogout}>
+            Logout
+          </button>
         </div>
       </div>
     </header>
